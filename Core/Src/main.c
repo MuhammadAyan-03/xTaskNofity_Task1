@@ -80,15 +80,15 @@ void StartTask02(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+/**
+  * @brief f toggle Function to alternate blinking between PB7
+  * 	   and PB14 when f key is pressed on Tera Term.
+  * @param None
+  * @retval None
+  */
 void ftoggle()
 {
 	char txBuff[] = "\nExited\n";
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-	HAL_Delay(500);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-	HAL_Delay(500);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
 	HAL_Delay(500);
@@ -102,7 +102,13 @@ void ftoggle()
 		HAL_UART_Transmit(&hlpuart1, (char *)txBuff, strlen(txBuff), HAL_MAX_DELAY);
 	}
 }
-
+/**
+  * @brief any other toggle Function to blink the led at
+  * 	   PC7 when any other button is pressed on Tera Term
+  * 	   besides the indicated ones.
+  * @param None
+  * @retval None
+  */
 void anyothertoggle()
 {
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
@@ -429,7 +435,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the defaultTask thread and blink leds.
   * @param  argument: Not used
   * @retval None
   */
@@ -463,7 +469,7 @@ void StartDefaultTask(void *argument)
 
 /* USER CODE BEGIN Header_StartTask02 */
 /**
-* @brief Function implementing the myTask02 thread.
+* @brief Function implementing the myTask02 thread and blink leds.
 * @param argument: Not used
 * @retval None
 */
